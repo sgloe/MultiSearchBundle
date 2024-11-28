@@ -1,14 +1,12 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Condition;
+namespace Sgloe\MultiSearchBundle\Condition;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\FormInterface;
 
 /**
  * Description of FormConditionBuilder
- *
- * @author Petko Petkov <petkopara@gmail.com>
  */
 class FormConditionBuilder extends ConditionBuilder
 {

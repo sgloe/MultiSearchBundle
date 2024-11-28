@@ -3,7 +3,7 @@
     "description": "Symfony bundle for Multi Criteria Search for doctrine entities using Form or Service.",
     "keywords": ["multi-search","criteria", "query builder", "symfony3", "doctrine"],
     "type": "symfony-bundle",
-    "homepage": "https://github.com/petkopara/PetkoparaMultiSearchBundle",
+    "homepage": "https://github.com/sgloe/MultiSearchBundle",
     "license": "MIT",
     "authors": [
         {
@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Petkopara\\MultiSearchBundle\\": ""
+            "Sgloe\\MultiSearchBundle\\": ""
         },
         "exclude-from-classmap": [
             "/Tests/"

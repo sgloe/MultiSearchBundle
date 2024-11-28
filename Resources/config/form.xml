@@ -5,12 +5,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="petkopara_multi_search.type.multi_search.class">Petkopara\MultiSearchBundle\Form\Type\MultiSearchType</parameter>
+        <parameter key="sgloe_multi_search.type.multi_search.class">Sgloe\MultiSearchBundle\Form\Type\MultiSearchType</parameter>
     </parameters>
 
     <services>
         <!-- Filter Types -->
-        <service id="petkopara_multi_search.type.multi_search" class="%petkopara_multi_search.type.multi_search.class%">
+        <service id="sgloe_multi_search.type.multi_search" class="%sgloe_multi_search.type.multi_search.class%">
             <tag name="form.type" />
         </service>
 

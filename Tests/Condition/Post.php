@@ -1,6 +1,6 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Tests;
+namespace Sgloe\MultiSearchBundle\Tests;
 
 use Doctrine\ORM\Mapping as ORM;
 

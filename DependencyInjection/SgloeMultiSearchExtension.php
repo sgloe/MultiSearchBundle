@@ -1,6 +1,6 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\DependencyInjection;
+namespace Sgloe\MultiSearchBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class PetkoparaMultiSearchExtension extends Extension
+class SgloeMultiSearchExtension extends Extension
 {
     /**
      * {@inheritdoc}

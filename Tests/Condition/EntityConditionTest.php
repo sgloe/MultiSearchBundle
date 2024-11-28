@@ -1,6 +1,6 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Tests;
+namespace Sgloe\MultiSearchBundle\Tests;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -8,14 +8,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
-use Petkopara\MultiSearchBundle\Condition\EntityConditionBuilder;
-use Petkopara\MultiSearchBundle\Condition\FormConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\EntityConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\FormConditionBuilder;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Test of EntityCondition class
- *
- * @author Petkov Petkov <petkopara@gmail.com>
  */
 class EntityConditionTest extends PHPUnit_Framework_TestCase
 {

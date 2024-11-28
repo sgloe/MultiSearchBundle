@@ -4,14 +4,12 @@
  *  EntityConditionBuilder.php 
  */
 
-namespace Petkopara\MultiSearchBundle\Condition;
+namespace Sgloe\MultiSearchBundle\Condition;
 
 use Doctrine\ORM\QueryBuilder;
 
 /**
  * Description of EntityConditionBuilder
- *
- * @author Petko Petkov <petkopara@gmail.com>
  */
 class EntityConditionBuilder extends ConditionBuilder
 {

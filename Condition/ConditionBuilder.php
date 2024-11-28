@@ -1,6 +1,6 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Condition;
+namespace Sgloe\MultiSearchBundle\Condition;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Form\Type;
+namespace Sgloe\MultiSearchBundle\Form\Type;
 
-use Petkopara\MultiSearchBundle\Condition\ConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\ConditionBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -12,8 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Filter type for strings.
- *
- * @author Petkov Petkov <petkopara@gmail.com>
  */
 class MultiSearchType extends AbstractType
 {
@@ -64,7 +62,7 @@ class MultiSearchType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'petkopara_multisearch';
+        return 'sgloe_multisearch';
     }
 
 }

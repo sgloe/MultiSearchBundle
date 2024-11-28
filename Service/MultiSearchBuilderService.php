@@ -1,12 +1,12 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\Service;
+namespace Sgloe\MultiSearchBundle\Service;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\FormInterface;
-use Petkopara\MultiSearchBundle\Condition\ConditionBuilder;
-use Petkopara\MultiSearchBundle\Condition\EntityConditionBuilder;
-use Petkopara\MultiSearchBundle\Condition\FormConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\ConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\EntityConditionBuilder;
+use Sgloe\MultiSearchBundle\Condition\FormConditionBuilder;
 use RuntimeException;
 
 /**

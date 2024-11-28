@@ -1,6 +1,6 @@
 <?php
 
-namespace Petkopara\MultiSearchBundle\DependencyInjection;
+namespace Sgloe\MultiSearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('petkopara_multi_search');
+        $treeBuilder = new TreeBuilder('sgloe_multi_search');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
