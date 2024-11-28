@@ -1,5 +1,5 @@
 {
-    "name": "petkopara/multi-search-bundle",
+    "name": "sgloe/multi-search-bundle",
     "description": "Symfony bundle for Multi Criteria Search for doctrine entities using Form or Service.",
     "keywords": ["multi-search","criteria", "query builder", "symfony3", "doctrine"],
     "type": "symfony-bundle",
@@ -7,12 +7,11 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Petko Petkov",
-            "email": "petkopara@gmail.com"
+            "name": "Sascha Gloe"
         }
     ],
     "require": {
-        "symfony/form": "^4.0|^5.0|^6.0",
+        "symfony/form": "^6.0",
         "doctrine/orm": "^2.5|^3.0"
     },
     "require-dev": {

@@ -17,14 +17,15 @@ class EntityConditionBuilder extends ConditionBuilder
 {
 
     /**
-     * 
-     * @param \Petkopara\MultiSearchBundle\Search\Condition\QueryBuilder $queryBuilder
-     * @param string $entityName 
-     * @param string $searchTerm
-     * @param array $searchFields
-     * @param string $comparisonType WILDCARD or EQUALS
+     *
      */
-    public function __construct(QueryBuilder $queryBuilder, $entityName, $searchTerm, array $searchFields = array(), $comparisonType = self::COMPARISION_TYPE_WILDCARD)
+    public function __construct(
+        QueryBuilder $queryBuilder,
+        string       $entityName,
+        string       $searchTerm,
+        array        $searchFields = [],
+        string       $comparisonType = self::COMPARISION_TYPE_WILDCARD
+    )
     {
         $this->entityManager = $queryBuilder->getEntityManager();
 

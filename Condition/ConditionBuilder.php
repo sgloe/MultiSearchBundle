@@ -2,17 +2,19 @@
 
 namespace Petkopara\MultiSearchBundle\Condition;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 
 abstract class ConditionBuilder
 {
 
-    protected $queryBuilder;
-    protected $searchColumns = array();
-    protected $searchTerm;
-    protected $searchComparisonType;
-    protected $entityName;
-    protected $idName;
+    protected EntityManagerInterface $entityManager;
+    protected QueryBuilder $queryBuilder;
+    protected array $searchColumns = [];
+    protected ?string $searchTerm;
+    protected string $searchComparisonType;
+    protected string $entityName;
+    protected string $idName;
 
     const COMPARISION_TYPE_WILDCARD = 'wildcard';
     const COMPARISION_TYPE_STARTS_WITH = 'starts_with';
@@ -20,14 +22,14 @@ abstract class ConditionBuilder
     const COMPARISION_TYPE_EQUALS = 'equals';
 
     /**
-     * Search into the entity 
+     * Search into the entity
      * @return QueryBuilder
      */
-    public function getQueryBuilderWithConditions()
+    public function getQueryBuilderWithConditions(): QueryBuilder
     {
         $alias = $this->getQueryBuilder()->getRootAlias();
         $query = $this->getQueryBuilder()
-                ->select($alias);
+            ->select($alias);
 
         if ($this->searchTerm == '') {
             return $query;
@@ -48,20 +50,20 @@ abstract class ConditionBuilder
 
             foreach ($this->searchColumns as $column) {
                 $whereQuery->add($query->expr()->like(
-                                $subst . '.' . $column, '?' . $paramPosistion
+                    $subst . '.' . $column, '?' . $paramPosistion
                 ));
             }
 
             $subqueryInner = $qbInner
-                    ->select($subst . '.' . $this->idName)
-                    ->from($this->entityName, $subst)
-                    ->where($whereQuery);
+                ->select($subst . '.' . $this->idName)
+                ->from($this->entityName, $subst)
+                ->where($whereQuery);
 
             if ($subquery !== null) {
                 $subqueryInner->andWhere(
-                        $query->expr()->in(
-                                $subst . '.' . $this->idName, $subquery->getQuery()->getDql()
-                        )
+                    $query->expr()->in(
+                        $subst . '.' . $this->idName, $subquery->getQuery()->getDql()
+                    )
                 );
             }
 
@@ -71,9 +73,9 @@ abstract class ConditionBuilder
         }
 
         $query->where(
-                $query->expr()->in(
-                        $alias . '.' . $this->idName, $subquery->getQuery()->getDql()
-                )
+            $query->expr()->in(
+                $alias . '.' . $this->idName, $subquery->getQuery()->getDql()
+            )
         );
 
         return $query;
@@ -81,10 +83,8 @@ abstract class ConditionBuilder
 
     /**
      * Whether to use wildcard or equals search
-     * @param type $searchQueryPart
-     * @return String
      */
-    private function getSearchQueryPart($searchQueryPart)
+    private function getSearchQueryPart(string $searchQueryPart): string
     {
         switch ($this->searchComparisonType) {
             case self::COMPARISION_TYPE_WILDCARD:
@@ -99,10 +99,10 @@ abstract class ConditionBuilder
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->queryBuilder;
     }

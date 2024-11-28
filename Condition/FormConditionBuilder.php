@@ -13,7 +13,10 @@ use Symfony\Component\Form\FormInterface;
 class FormConditionBuilder extends ConditionBuilder
 {
 
-    public function __construct(QueryBuilder $queryBuilder, FormInterface $form)
+    public function __construct(
+        QueryBuilder  $queryBuilder,
+        FormInterface $form
+    )
     {
 
         $this->queryBuilder = $queryBuilder;
