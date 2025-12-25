@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  EntityConditionBuilder.php 
+ *  EntityConditionBuilder.php
  */
 
 namespace Sgloe\MultiSearchBundle\Condition;
@@ -22,7 +22,7 @@ class EntityConditionBuilder extends ConditionBuilder
         string       $entityName,
         string       $searchTerm,
         array        $searchFields = [],
-        string       $comparisonType = self::COMPARISION_TYPE_WILDCARD
+        string       $comparisonType = self::COMPARISON_TYPE_WILDCARD
     )
     {
         $this->entityManager = $queryBuilder->getEntityManager();

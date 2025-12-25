@@ -39,10 +39,10 @@ class MultiSearchBuilderService
         string       $entityName,
         string       $searchTerm,
         array        $searchFields = [],
-                     $comparisonType = ConditionBuilder::COMPARISION_TYPE_WILDCARD
+                     $comparisonType = ConditionBuilder::COMPARISON_TYPE_WILDCARD
     ): QueryBuilder
     {
-        if (!in_array($comparisonType, [ConditionBuilder::COMPARISION_TYPE_WILDCARD, ConditionBuilder::COMPARISION_TYPE_EQUALS])) {
+        if (!in_array($comparisonType, [ConditionBuilder::COMPARISON_TYPE_WILDCARD, ConditionBuilder::COMPARISON_TYPE_EQUALS])) {
             throw new RuntimeException("The condition type should be wildcard or equals");
         }
 

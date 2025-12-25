@@ -10,20 +10,17 @@ use Symfony\Component\Form\FormInterface;
  */
 class FormConditionBuilder extends ConditionBuilder
 {
-
     public function __construct(
         QueryBuilder  $queryBuilder,
         FormInterface $form
     )
     {
-
         $this->queryBuilder = $queryBuilder;
         $this->entityManager = $queryBuilder->getEntityManager();
 
         $this->searchTerm = $form->getData();
         $this->searchComparisonType = $form->getConfig()->getOption('search_comparison_type');
         $this->entityName = $form->getConfig()->getOption('class');
-
 
         /** @var $metadata \Doctrine\ORM\Mapping\ClassMetadata */
         $metadata = $this->entityManager->getClassMetadata($this->entityName);
@@ -39,5 +36,4 @@ class FormConditionBuilder extends ConditionBuilder
             }
         }
     }
-
 }

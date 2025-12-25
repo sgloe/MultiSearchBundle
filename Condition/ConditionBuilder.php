@@ -16,10 +16,10 @@ abstract class ConditionBuilder
     protected string $entityName;
     protected string $idName;
 
-    const COMPARISION_TYPE_WILDCARD = 'wildcard';
-    const COMPARISION_TYPE_STARTS_WITH = 'starts_with';
-    const COMPARISION_TYPE_ENDS_WITH = 'ends_with';
-    const COMPARISION_TYPE_EQUALS = 'equals';
+    public const string COMPARISON_TYPE_WILDCARD = 'wildcard';
+    public const string COMPARISON_TYPE_STARTS_WITH = 'starts_with';
+    public const string COMPARISON_TYPE_ENDS_WITH = 'ends_with';
+    public const string COMPARISON_TYPE_EQUALS = 'equals';
 
     /**
      * Search into the entity
@@ -31,7 +31,7 @@ abstract class ConditionBuilder
         $query = $this->getQueryBuilder()
             ->select($alias);
 
-        if ($this->searchTerm == '') {
+        if ($this->searchTerm === '') {
             return $query;
         }
 
@@ -43,14 +43,14 @@ abstract class ConditionBuilder
         foreach ($searchQueryParts as $i => $searchQueryPart) {
             $qbInner = $this->entityManager->createQueryBuilder();
 
-            $paramPosistion = $i + 1;
-            ++$subst;
+            $paramPosition = $i + 1;
+            $subst = str_increment($subst);
 
             $whereQuery = $query->expr()->orX();
 
             foreach ($this->searchColumns as $column) {
                 $whereQuery->add($query->expr()->like(
-                    $subst . '.' . $column, '?' . $paramPosistion
+                    $subst . '.' . $column, '?' . $paramPosition
                 ));
             }
 
@@ -69,7 +69,7 @@ abstract class ConditionBuilder
 
             $subquery = $subqueryInner;
 
-            $query->setParameter($paramPosistion, $this->getSearchQueryPart($searchQueryPart));
+            $query->setParameter($paramPosition, $this->getSearchQueryPart($searchQueryPart));
         }
 
         $query->where(
@@ -86,16 +86,12 @@ abstract class ConditionBuilder
      */
     private function getSearchQueryPart(string $searchQueryPart): string
     {
-        switch ($this->searchComparisonType) {
-            case self::COMPARISION_TYPE_WILDCARD:
-                return '%' . $searchQueryPart . '%';
-            case self::COMPARISION_TYPE_STARTS_WITH:
-                return '%' . $searchQueryPart;
-            case self::COMPARISION_TYPE_ENDS_WITH:
-                return $searchQueryPart . '%';
-            default: //equals comparison type
-                return str_replace('*', '%', $searchQueryPart);
-        }
+        return match ($this->searchComparisonType) {
+            self::COMPARISON_TYPE_WILDCARD => '%' . $searchQueryPart . '%',
+            self::COMPARISON_TYPE_STARTS_WITH => '%' . $searchQueryPart,
+            self::COMPARISON_TYPE_ENDS_WITH => $searchQueryPart . '%',
+            default => str_replace('*', '%', $searchQueryPart),
+        };
     }
 
     /**

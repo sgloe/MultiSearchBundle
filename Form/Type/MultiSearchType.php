@@ -19,7 +19,7 @@ class MultiSearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (empty($options['class'])) {
             throw new InvalidConfigurationException('Option "class" must be set.');
@@ -29,30 +29,30 @@ class MultiSearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-                ->setDefaults(array(
+                ->setDefaults([
                     'class' => '',
-                    'search_fields' => array(),
+                    'search_fields' => [],
                     'search_comparison_type' => 'wildcard',
                     'required' => false,
                     'data_extraction_method' => 'default',
-                ))
-                ->setAllowedValues('data_extraction_method', array('default'))
-                ->setAllowedValues('search_comparison_type', array(
-                    ConditionBuilder::COMPARISION_TYPE_WILDCARD,
-                    ConditionBuilder::COMPARISION_TYPE_EQUALS,
-                    ConditionBuilder::COMPARISION_TYPE_STARTS_WITH,
-                    ConditionBuilder::COMPARISION_TYPE_ENDS_WITH,
-                    ))
+                ])
+                ->setAllowedValues('data_extraction_method', ['default'])
+                ->setAllowedValues('search_comparison_type', [
+                    ConditionBuilder::COMPARISON_TYPE_WILDCARD,
+                    ConditionBuilder::COMPARISON_TYPE_EQUALS,
+                    ConditionBuilder::COMPARISON_TYPE_STARTS_WITH,
+                    ConditionBuilder::COMPARISON_TYPE_ENDS_WITH,
+                    ])
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): string
     {
         return SearchType::class;
     }
@@ -60,7 +60,7 @@ class MultiSearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'sgloe_multisearch';
     }
