@@ -14,25 +14,31 @@ The searched columns can be specified.
 
     composer require sgloe/multi-search-bundle
 
-Add it to the `AppKernel.php` class:
+Add it to your `config/bundles.php`:
 
-    new Sgloe\MultiSearchBundle\SgloeMultiSearchBundle(),
+    Sgloe\MultiSearchBundle\SgloeMultiSearchBundle::class => ['all' => true],
 
 ## Usage
 
 ### Service
 
-You can directly use the service and to apply the multi search to any doctrine query builder.
+You can inject the service and apply the multi search to any Doctrine query builder.
 
-    public function indexAction(Request $request)
+    use Sgloe\MultiSearchBundle\Service\MultiSearchBuilderService;
+
+    public function __construct(
+        private MultiSearchBuilderService $multiSearchBuilder,
+        private EntityManagerInterface $entityManager,
+    ) {}
+
+    public function index(Request $request): Response
     {
-        $search = $request->get('search');
-        $em = $this->getDoctrine()->getManager();
-        
-        $qb = $em->getRepository('AppBundle:Post')->createQueryBuilder('e');
-        $qb = $this->get('sgloe_multi_search.builder')->searchEntity($qb, 'AppBundle:Post', $search);
-       //$qb = $this->get('sgloe_multi_search.builder')->searchEntity($qb, 'AppBundle:Post', $search, array('name', 'content'), 'wildcard');
-    
+        $search = $request->query->get('search');
+
+        $qb = $this->entityManager->getRepository(Post::class)->createQueryBuilder('e');
+        $qb = $this->multiSearchBuilder->searchEntity($qb, Post::class, $search);
+        //$qb = $this->multiSearchBuilder->searchEntity($qb, Post::class, $search, ['name', 'content'], 'wildcard');
+
         ..
     }
 
@@ -42,38 +48,42 @@ Create your form type and include the multiSearchType in the buildForm function:
 
     use Sgloe\MultiSearchBundle\Form\Type\MultiSearchType;
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-                ->add('search', MultiSearchType::class, array(
-                    'class' => 'AppBundle:Post', //required
-                    'search_fields' => array( //optional, if it's empty it will search in the all entity columns
-                        'name',
-                        'content'
-                     ), 
-                     'search_comparison_type' => 'wildcard' //optional, what type of comparison to applied ('wildcard','starts_with', 'ends_with', 'equals')
-                     
-                ))
+            ->add('search', MultiSearchType::class, [
+                'class' => Post::class, //required
+                'search_fields' => [ //optional, if it's empty it will search in all entity columns
+                    'name',
+                    'content',
+                ],
+                'search_comparison_type' => 'wildcard', //optional, what type of comparison to apply ('wildcard','starts_with', 'ends_with', 'equals')
+            ])
         ;
     }
 
-In the controller add call to the multi search service:
+In the controller, inject the service and call the multi search:
 
-    public function indexAction(Request $request)
+    use Sgloe\MultiSearchBundle\Service\MultiSearchBuilderService;
+
+    public function __construct(
+        private MultiSearchBuilderService $multiSearchBuilder,
+        private EntityManagerInterface $entityManager,
+    ) {}
+
+    public function index(Request $request): Response
     {
-        $search = $request->get('search');
-        $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('AppBundle:Post')->createQueryBuilder('e');
-        $filterForm = $this->createForm('AppBundle\Form\PostFilterType');
+        $queryBuilder = $this->entityManager->getRepository(Post::class)->createQueryBuilder('e');
+        $filterForm = $this->createForm(PostFilterType::class);
 
         // Bind values from the request
         $filterForm->handleRequest($request);
 
-        if ($filterForm->isValid()) {
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             // Build the query from the given form object
-            $queryBuilder = $this->get('sgloe_multi_search.builder')->searchForm($queryBuilder, $filterForm->get('search'));
+            $queryBuilder = $this->multiSearchBuilder->searchForm($queryBuilder, $filterForm->get('search'));
         }
-        
+
         ..
     }
 
