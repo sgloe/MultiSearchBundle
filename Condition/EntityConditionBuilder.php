@@ -42,7 +42,7 @@ class EntityConditionBuilder extends ConditionBuilder
             $this->searchColumns = $searchFields;
         } else {
             foreach ($metadata->fieldMappings as $field) {
-                $this->searchColumns[] = $field['fieldName'];
+                $this->searchColumns[] = $field->fieldName;
             }
         }
     }
