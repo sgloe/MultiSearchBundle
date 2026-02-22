@@ -1,0 +1,8 @@
+services:
+    sgloe_multi_search.builder:
+        class: Sgloe\MultiSearchBundle\Service\MultiSearchBuilderService
+        public: true
+
+    Sgloe\MultiSearchBundle\Service\MultiSearchBuilderService:
+        alias: sgloe_multi_search.builder
+        public: true
